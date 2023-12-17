@@ -12,9 +12,9 @@ public interface CustomerDAO {
 
      void updateCustomer(String name,String address,String id) throws SQLException, ClassNotFoundException;
      void deleteCustomer(String id) throws SQLException, ClassNotFoundException;
-     boolean exsitCustomer(String id) throws SQLException, ClassNotFoundException ;
+     boolean existCustomer(String id) throws SQLException, ClassNotFoundException ;
 
 
      String generateNewId() throws SQLException, ClassNotFoundException;
-
+     CustomerDTO searchCustomer(String newValue) throws SQLException, ClassNotFoundException;
 }

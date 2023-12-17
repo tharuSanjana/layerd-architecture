@@ -45,7 +45,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         pstm.executeUpdate();
     }
     @Override
-    public boolean exsitCustomer(String id) throws SQLException, ClassNotFoundException {
+    public boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("SELECT id FROM Customer WHERE id=?");
         pstm.setString(1, id);
@@ -65,4 +65,15 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
 
     }
+    @Override
+    public CustomerDTO searchCustomer(String newValue) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
+        pstm.setString(1, newValue + "");
+        ResultSet rst = pstm.executeQuery();
+        rst.next();
+        CustomerDTO customerDTO = new CustomerDTO(newValue + "", rst.getString("name"), rst.getString("address"));
+        return customerDTO;
+    }
+
 }
