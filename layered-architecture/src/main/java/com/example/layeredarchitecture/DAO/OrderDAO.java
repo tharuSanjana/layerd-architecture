@@ -12,4 +12,5 @@ public interface OrderDAO {
      boolean order(String orderId) throws SQLException, ClassNotFoundException;
 
      boolean order(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException;
+     String generateNewOrederId() throws SQLException, ClassNotFoundException;
 }

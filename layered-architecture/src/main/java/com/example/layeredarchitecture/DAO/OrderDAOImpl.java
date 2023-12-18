@@ -36,6 +36,7 @@ public class OrderDAOImpl implements OrderDAO {
       }
       return false;
    }
+   @Override
    public String generateNewOrederId() throws SQLException, ClassNotFoundException {
       Connection connection = DBConnection.getDbConnection().getConnection();
       Statement stm = connection.createStatement();
