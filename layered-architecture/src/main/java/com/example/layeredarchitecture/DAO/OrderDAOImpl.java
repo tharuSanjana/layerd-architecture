@@ -5,7 +5,8 @@ import com.example.layeredarchitecture.db.DBConnection;
 import java.sql.*;
 import java.time.LocalDate;
 
-public class OrderDAOImpl {
+public class OrderDAOImpl implements OrderDAO {
+   @Override
    public boolean order(String orderId) throws SQLException, ClassNotFoundException {
       Connection connection = DBConnection.getDbConnection().getConnection();
       PreparedStatement stm = connection.prepareStatement("SELECT oid FROM `Orders` WHERE oid=?");
@@ -20,6 +21,7 @@ public class OrderDAOImpl {
 
       return true;
    }
+   @Override
    public boolean order(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {
       Connection connection = DBConnection.getDbConnection().getConnection();
       PreparedStatement stm = connection.prepareStatement("INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)");

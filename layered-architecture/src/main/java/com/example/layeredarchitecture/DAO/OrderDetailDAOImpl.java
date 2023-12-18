@@ -6,26 +6,32 @@ import com.example.layeredarchitecture.model.OrderDetailDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDetailDAOImpl {
-    public boolean orderDetails(List<OrderDetailDTO> orderDetails, String orderId) throws SQLException, ClassNotFoundException {
+public class OrderDetailDAOImpl implements OrderDetailDAO{
+    @Override
+    public ArrayList<OrderDetailDTO> orderDetails(List<OrderDetailDTO> orderDetails, String orderId) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
-
+        ArrayList<OrderDetailDTO> orderDetail = new ArrayList<>();
+       // OrderDTO orderDTO = new OrderDTO();
         for (OrderDetailDTO detail : orderDetails) {
             stm.setString(1, orderId);
             stm.setString(2, detail.getItemCode());
             stm.setBigDecimal(3, detail.getUnitPrice());
             stm.setInt(4, detail.getQty());
 
+            OrderDetailDTO orderDetailDTO = new OrderDetailDTO(detail.getItemCode(), detail.getQty(), detail.getUnitPrice());
+            orderDetail.add(orderDetailDTO);
+           // orderDetail.add(detail.getItemCode());
             if (stm.executeUpdate() != 1) {
                 connection.rollback();
                 connection.setAutoCommit(true);
-                return false;
+               // return false;
             }
         }
-        return true;
+        return orderDetail;
     }
 }
 
