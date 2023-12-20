@@ -1,37 +1,28 @@
 package com.example.layeredarchitecture.DAO;
 
 import com.example.layeredarchitecture.db.DBConnection;
+import com.example.layeredarchitecture.model.OrderDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
+//import sun.security.ec.XECParameters;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDetailDAOImpl implements OrderDetailDAO{
-    @Override
-    public ArrayList<OrderDetailDTO> orderDetails(List<OrderDetailDTO> orderDetails, String orderId) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getDbConnection().getConnection();
-        PreparedStatement stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
-        ArrayList<OrderDetailDTO> orderDetail = new ArrayList<>();
-       // OrderDTO orderDTO = new OrderDTO();
-        for (OrderDetailDTO detail : orderDetails) {
-            stm.setString(1, orderId);
-            stm.setString(2, detail.getItemCode());
-            stm.setBigDecimal(3, detail.getUnitPrice());
-            stm.setInt(4, detail.getQty());
+public class OrderDetailDAOImpl implements OrderDetailDAO {
 
-            OrderDetailDTO orderDetailDTO = new OrderDetailDTO(detail.getItemCode(), detail.getQty(), detail.getUnitPrice());
-            orderDetail.add(orderDetailDTO);
-           // orderDetail.add(detail.getItemCode());
-            if (stm.executeUpdate() != 1) {
-                connection.rollback();
-                connection.setAutoCommit(true);
-               // return false;
-            }
-        }
-        return orderDetail;
-    }
+   @Override
+   public boolean saveOrderDetails(OrderDetailDTO dto) throws SQLException, ClassNotFoundException {
+       Connection connection = DBConnection.getDbConnection().getConnection();
+       PreparedStatement stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
+       stm.setString(1, dto.getOid());
+       stm.setString(2, dto.getItemCode());
+       stm.setBigDecimal(3, dto.getUnitPrice());
+       stm.setInt(4, dto.getQty());
+       return stm.executeUpdate()>0;
+   }
 }
 

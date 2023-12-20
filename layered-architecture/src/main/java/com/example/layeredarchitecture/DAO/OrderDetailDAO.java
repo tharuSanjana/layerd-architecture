@@ -10,5 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface OrderDetailDAO {
-     ArrayList<OrderDetailDTO> orderDetails(List<OrderDetailDTO> orderDetails, String orderId) throws SQLException, ClassNotFoundException;
+    boolean saveOrderDetails(OrderDetailDTO dto) throws SQLException, ClassNotFoundException;
+
+
+    // ArrayList<OrderDetailDTO> orderDetails(List<OrderDetailDTO> orderDetails, String orderId) throws SQLException, ClassNotFoundException;
     }

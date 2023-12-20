@@ -176,7 +176,7 @@ public class ManageItemsFormController {
                 }
 
                 ItemDAO itemDAO = new ItemDAOImpl();
-                itemDAO.saveItem(code,description,unitPrice,qtyOnHand);
+                itemDAO.saveItem(code, description, unitPrice, qtyOnHand);
                 tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
 
             } catch (SQLException e) {
@@ -193,13 +193,17 @@ public class ManageItemsFormController {
                 /*Update Item*/
 
 
-
-                itemDAO.updateItem(description,unitPrice,qtyOnHand,code);
-                ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
-                selectedItem.setDescription(description);
-                selectedItem.setQtyOnHand(qtyOnHand);
-                selectedItem.setUnitPrice(unitPrice);
-                tblItems.refresh();
+                ItemDTO itemDTO = new ItemDTO(code, description, unitPrice, qtyOnHand);
+                // itemDAO.update(description,unitPrice,qtyOnHand,code);
+                ItemDAO itemDAO = new ItemDAOImpl();
+                boolean updated = itemDAO.update(itemDTO);
+                if (updated) {
+                    ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
+                    selectedItem.setDescription(description);
+                    selectedItem.setQtyOnHand(qtyOnHand);
+                    selectedItem.setUnitPrice(unitPrice);
+                    tblItems.refresh();
+                }
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             } catch (ClassNotFoundException e) {
@@ -209,7 +213,6 @@ public class ManageItemsFormController {
 
         btnAddNewItem.fire();
     }
-
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
         return itemDAO.existItem(code);

@@ -146,8 +146,8 @@ public class ManageCustomersFormController {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
 
-
-                customerDAO.saveCustomer(id,name,address);
+                CustomerDTO customerDTO=new CustomerDTO(id,name,address);
+                customerDAO.saveCustomer(customerDTO);
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));        //tight coupling
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to save the customer " + e.getMessage()).show();
@@ -168,8 +168,8 @@ public class ManageCustomersFormController {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-
-            customerDAO.updateCustomer(name,address,id);
+            CustomerDTO customerDTO=new CustomerDTO(id,name,address);
+            customerDAO.updateCustomer(customerDTO);
             CustomerTM selectedCustomer = tblCustomers.getSelectionModel().getSelectedItem();  //tight coupling
             selectedCustomer.setName(name);
             selectedCustomer.setAddress(address);
