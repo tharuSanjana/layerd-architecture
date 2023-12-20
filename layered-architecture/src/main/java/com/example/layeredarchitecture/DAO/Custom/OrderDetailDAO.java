@@ -1,5 +1,6 @@
-package com.example.layeredarchitecture.DAO;
+package com.example.layeredarchitecture.DAO.Custom;
 
+import com.example.layeredarchitecture.DAO.CrudDAO;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
 
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface OrderDetailDAO {
+public interface OrderDetailDAO extends CrudDAO<OrderDetailDTO> {
     boolean saveOrderDetails(OrderDetailDTO dto) throws SQLException, ClassNotFoundException;
 
 

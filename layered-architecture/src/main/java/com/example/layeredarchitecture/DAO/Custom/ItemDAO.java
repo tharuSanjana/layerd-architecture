@@ -1,17 +1,16 @@
-package com.example.layeredarchitecture.DAO;
+package com.example.layeredarchitecture.DAO.Custom;
 
-import com.example.layeredarchitecture.db.DBConnection;
+import com.example.layeredarchitecture.DAO.CrudDAO;
 import com.example.layeredarchitecture.model.ItemDTO;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
-public interface ItemDAO {
+public interface ItemDAO extends CrudDAO<ItemDTO> {
      ArrayList<ItemDTO> getAllItems() throws SQLException, ClassNotFoundException ;
-    void saveItem(String code, String description, BigDecimal unitPrice, int qtyOnHand) throws SQLException, ClassNotFoundException ;
+    Boolean saveItem(ItemDTO itemDTO) throws SQLException, ClassNotFoundException ;
 
-     void deleteItem(String code) throws SQLException, ClassNotFoundException ;
+     Boolean deleteItem(String code) throws SQLException, ClassNotFoundException ;
     //void updateItem(String description,BigDecimal unitPrice,int qtyOnHand,String code) throws SQLException, ClassNotFoundException;
 
 

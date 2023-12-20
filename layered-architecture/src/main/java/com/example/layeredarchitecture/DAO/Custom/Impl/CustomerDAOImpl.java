@@ -1,6 +1,7 @@
-package com.example.layeredarchitecture.DAO;
+package com.example.layeredarchitecture.DAO.Custom.Impl;
 
-import com.example.layeredarchitecture.db.DBConnection;
+import com.example.layeredarchitecture.DAO.Custom.CustomerDAO;
+import com.example.layeredarchitecture.DAO.SqlUtil;
 import com.example.layeredarchitecture.model.CustomerDTO;
 
 import java.sql.*;
@@ -54,6 +55,33 @@ public class CustomerDAOImpl implements CustomerDAO {
        }
 
     }
+
+    @Override
+    public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+
     @Override
     public String generateNewId() throws SQLException, ClassNotFoundException {
         String sql = "SELECT id FROM Customer ORDER BY id DESC LIMIT 1;";
@@ -67,6 +95,13 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
 
     }
+
+    @Override
+    public CustomerDTO search(String newValue) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+
     @Override
     public CustomerDTO searchCustomer(String newValue) throws SQLException, ClassNotFoundException {
         String sql = "SELECT * FROM Customer WHERE id=?";
