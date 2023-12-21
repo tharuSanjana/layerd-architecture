@@ -1,6 +1,7 @@
 package com.example.layeredarchitecture.DAO.Custom.Impl;
 
 import com.example.layeredarchitecture.DAO.Custom.OrderDAO;
+import com.example.layeredarchitecture.DAO.Query;
 import com.example.layeredarchitecture.DAO.SqlUtil;
 import com.example.layeredarchitecture.model.OrderDTO;
 
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 public class OrderDAOImpl implements OrderDAO {
    //Transaction t = new Transaction();
    SqlUtil s = new SqlUtil();
+   Query q = new Query();
 
    @Override
    public String generateNewOrederId() throws SQLException, ClassNotFoundException {
@@ -30,10 +32,15 @@ public class OrderDAOImpl implements OrderDAO {
    }
    @Override
    public boolean saveOrder(OrderDTO dto) throws SQLException, ClassNotFoundException {
+       q.joinQuery();
 
       String sql = "INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)";
       Boolean test = s.test(sql,dto.getOrderId(),Date.valueOf(dto.getOrderDate()),dto.getCustomerId());
       return test;
+
+
+
+
    }
 
 
